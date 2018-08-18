@@ -19,10 +19,12 @@ int main() {
     uv_idle_start(idler, wait_for_a_while);
 
     printf("Idling...\n");
+
     /*  start the event loop */
     uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 
 
     uv_loop_close(uv_default_loop());
+    free(idler);
     return 0;
 }

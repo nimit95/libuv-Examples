@@ -39,7 +39,7 @@ $ git clone https://github.com/nimit95/libuv-Examples && cd libuv-Examples
 To execute a program :
 
 ```bash
-$ make <program-name>.c
+$ make <program-name>
 $ ./<program-name>
 ```
 To make all program at once
