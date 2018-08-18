@@ -33,7 +33,7 @@ int main() {
     r = uv_fs_read(loop, read_req, open_req->result, &iov, 1, -1, NULL);
     check(r);
 
-    printf("The text is ->  %s", buf);
+    printf("The text is -> %s", buf);
 
     uv_fs_t* close_req = malloc(sizeof(uv_fs_t));
     r = uv_fs_close(loop, close_req, open_req->result, NULL);
