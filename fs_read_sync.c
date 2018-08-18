@@ -19,21 +19,25 @@ int main() {
     uv_loop_t* loop = uv_default_loop();
 
     uv_fs_t* open_req = malloc(sizeof(uv_fs_t));
+
+    // Opens the file synchronously
     // O_RDONLY is File Status Flag ie open for reading only 
     // S_IRUSR is system flag - R for owner 
     int r = uv_fs_open(loop, open_req, filename, O_RDONLY, S_IRUSR, NULL);
 
     check(r);
 
-    uv_fs_t* read_req = malloc(sizeof(uv_fs_t));
+    // buffer and initialize it to turn it into a a uv_buf_t *
     char buf[BUF_SIZE];
     memset(buf, 0, sizeof(buf));
     uv_buf_t iov = uv_buf_init(buf, BUF_SIZE);
 
+    uv_fs_t* read_req = malloc(sizeof(uv_fs_t));
+    // we have 1 buffer to give, -1 is the starting offset
     r = uv_fs_read(loop, read_req, open_req->result, &iov, 1, -1, NULL);
     check(r);
 
-    printf("The text is -> %s", buf);
+    printf("The text is -> %s", iov.base);
 
     uv_fs_t* close_req = malloc(sizeof(uv_fs_t));
     r = uv_fs_close(loop, close_req, open_req->result, NULL);
